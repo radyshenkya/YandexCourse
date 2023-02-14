@@ -8,6 +8,7 @@ public class CharacterRopeController : MonoBehaviour
     private HingeJoint2D _ropeConnectionJoint;
     private Rigidbody2D _rigidbody;
     private Rigidbody2D _lastConnectedRopeRigidbody;
+    private Vector2 _smoothedForceDirection = Vector2.zero;
 
     private void Start()
     {
@@ -33,11 +34,12 @@ public class CharacterRopeController : MonoBehaviour
 
         if (Mathf.Abs(_rigidbody.velocity.x) > _maxSwingVelocity) { return; }
 
-        Vector2 forceDirection = _rigidbody.velocity.x > 0 ? Vector2.right : Vector2.left;
-        _rigidbody.AddForce(forceDirection * _swingForce);
+        Vector2 newForceDirection = _rigidbody.velocity.x > 0 ? Vector2.right : Vector2.left;
+        _smoothedForceDirection = Vector2.Lerp(_smoothedForceDirection, newForceDirection, 0.2f);
+        _rigidbody.AddForce(_smoothedForceDirection * _swingForce);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("RopeEnd"))
         {
