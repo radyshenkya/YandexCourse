@@ -645,9 +645,10 @@ GameObject:
   - component: {fileID: 617722814}
   - component: {fileID: 617722813}
   - component: {fileID: 617722812}
+  - component: {fileID: 617722816}
   m_Layer: 0
   m_Name: RopeEnd
-  m_TagString: RopeEnd
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -780,6 +781,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &617722816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617722810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3aa7da1a2c89410fb8b4e7d9d19d2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &670227303
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,9 +937,10 @@ GameObject:
   - component: {fileID: 771872943}
   - component: {fileID: 771872942}
   - component: {fileID: 771872941}
+  - component: {fileID: 771872945}
   m_Layer: 0
   m_Name: RopeEnd
-  m_TagString: RopeEnd
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1059,6 +1073,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &771872945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771872939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3aa7da1a2c89410fb8b4e7d9d19d2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &895891753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,9 +1266,10 @@ GameObject:
   - component: {fileID: 951869513}
   - component: {fileID: 951869512}
   - component: {fileID: 951869511}
+  - component: {fileID: 951869515}
   m_Layer: 0
   m_Name: RopeEnd
-  m_TagString: RopeEnd
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1375,6 +1402,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &951869515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951869509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3aa7da1a2c89410fb8b4e7d9d19d2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &991591230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1837,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
 --- !u!114 &1209217266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1811,8 +1850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15159f56d17cb9ff99dbe005c07b7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSwingVelocity: 5
-  _swingForce: 35
+  _maxSwingVelocity: 3
+  _swingForce: 20
 --- !u!1 &1311355322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,9 +2626,10 @@ GameObject:
   - component: {fileID: 1582619013}
   - component: {fileID: 1582619012}
   - component: {fileID: 1582619011}
+  - component: {fileID: 1582619015}
   m_Layer: 0
   m_Name: RopeEnd
-  m_TagString: RopeEnd
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2722,6 +2762,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1582619015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582619009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3aa7da1a2c89410fb8b4e7d9d19d2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1604616725
 GameObject:
   m_ObjectHideFlags: 0

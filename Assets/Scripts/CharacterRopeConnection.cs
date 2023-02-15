@@ -10,30 +10,30 @@ public class CharacterRopeConnection : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _ropeConnectionJoint = GetComponent<HingeJoint2D>();
-        ConnectToRope(_ropeConnectionJoint.connectedBody);
+        ConnectTo(_ropeConnectionJoint.connectedBody);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            DisconnectRope();
+            Disconnect();
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("RopeEnd"))
+        if (other.TryGetComponent<RopeEnd>(out RopeEnd ropeEnd))
         {
             Rigidbody2D ropeRigidbody = other.GetComponent<Rigidbody2D>();
 
             if (ropeRigidbody == _lastConnectedRopeRigidbody || _ropeConnectionJoint.enabled) { return; }
 
-            ConnectToRope(ropeRigidbody);
+            ConnectTo(ropeRigidbody);
         }
     }
 
-    private void ConnectToRope(Rigidbody2D ropeEndRigidBody)
+    private void ConnectTo(Rigidbody2D ropeEndRigidBody)
     {
         // Телепортируем игрока на центр сегмента веревки, что бы он не цеплялся за воздух, а держался по центру.
         Vector3 ropeEndPosition = ropeEndRigidBody.transform.position;
@@ -46,7 +46,7 @@ public class CharacterRopeConnection : MonoBehaviour
         _ropeConnectionJoint.enabled = true;
     }
 
-    private void DisconnectRope()
+    private void Disconnect()
     {
         _ropeConnectionJoint.enabled = false;
     }
