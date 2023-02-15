@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public class CharacterRopeController : MonoBehaviour
+public class CharacterRopeConnection : MonoBehaviour
 {
-    [SerializeField] private float _maxSwingVelocity;
-    [SerializeField] private float _swingForce;
-
     private HingeJoint2D _ropeConnectionJoint;
     private Rigidbody2D _rigidbody;
     private Rigidbody2D _lastConnectedRopeRigidbody;
-    private Vector2 _smoothedForceDirection = Vector2.zero;
 
     private void Start()
     {
@@ -23,20 +19,6 @@ public class CharacterRopeController : MonoBehaviour
         {
             DisconnectRope();
         }
-
-        PlayerSwing();
-    }
-
-    private void PlayerSwing()
-    {
-        // Если игрок не на веревке - раскачка не нужна
-        if (!_ropeConnectionJoint.enabled) { return; }
-
-        if (Mathf.Abs(_rigidbody.velocity.x) > _maxSwingVelocity) { return; }
-
-        Vector2 newForceDirection = _rigidbody.velocity.x > 0 ? Vector2.right : Vector2.left;
-        _smoothedForceDirection = Vector2.Lerp(_smoothedForceDirection, newForceDirection, 0.2f);
-        _rigidbody.AddForce(_smoothedForceDirection * _swingForce);
     }
 
     private void OnTriggerStay2D(Collider2D other)

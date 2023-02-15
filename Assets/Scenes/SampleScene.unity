@@ -1651,6 +1651,7 @@ GameObject:
   - component: {fileID: 1209217262}
   - component: {fileID: 1209217265}
   - component: {fileID: 1209217264}
+  - component: {fileID: 1209217266}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Untagged
@@ -1761,7 +1762,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -1782,8 +1783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bedad3cda47e3ff90337ef12bb5478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSwingVelocity: 3
-  _swingForce: 20
 --- !u!58 &1209217265
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1800,6 +1799,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1209217266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209217259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15159f56d17cb9ff99dbe005c07b7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSwingVelocity: 5
+  _swingForce: 35
 --- !u!1 &1311355322
 GameObject:
   m_ObjectHideFlags: 0
