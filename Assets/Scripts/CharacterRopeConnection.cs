@@ -13,14 +13,6 @@ public class CharacterRopeConnection : MonoBehaviour
         ConnectTo(_ropeConnectionJoint.connectedBody);
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Disconnect();
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.TryGetComponent<RopeEnd>(out RopeEnd ropeEnd))
@@ -33,12 +25,12 @@ public class CharacterRopeConnection : MonoBehaviour
         }
     }
 
-    private void ConnectTo(Rigidbody2D ropeEndRigidBody)
+    public void ConnectTo(Rigidbody2D ropeEndRigidBody)
     {
         // Телепортируем игрока на центр сегмента веревки, что бы он не цеплялся за воздух, а держался по центру.
-        Vector3 ropeEndPosition = ropeEndRigidBody.transform.position;
-        Vector3 teleportedPosition = new Vector3(ropeEndPosition.x, ropeEndPosition.y, transform.position.z);
-        transform.position = teleportedPosition;
+        // Vector3 ropeEndPosition = ropeEndRigidBody.transform.position;
+        // Vector3 teleportedPosition = new Vector3(ropeEndPosition.x, ropeEndPosition.y, transform.position.z);
+        // transform.position = teleportedPosition;
 
         _lastConnectedRopeRigidbody = ropeEndRigidBody;
         _ropeConnectionJoint.connectedBody = ropeEndRigidBody;
@@ -46,7 +38,7 @@ public class CharacterRopeConnection : MonoBehaviour
         _ropeConnectionJoint.enabled = true;
     }
 
-    private void Disconnect()
+    public void Disconnect()
     {
         _ropeConnectionJoint.enabled = false;
     }
