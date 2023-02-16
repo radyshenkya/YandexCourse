@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class CharacterRopeAutoConnect : MonoBehaviour
+public class CharacterRopeAutoConnection : MonoBehaviour
 {
     [SerializeField] private float _centerizingSmoothCoefficient = 0.01f;
+
     private CharacterRopeConnection _ropeConnection;
     private Rigidbody2D _lastConnectedRopeRigidbody;
 
