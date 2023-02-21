@@ -10,6 +10,7 @@ public class Slide : MonoBehaviour
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private float _speed;
+    [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rigidbody;
 
@@ -18,6 +19,8 @@ public class Slide : MonoBehaviour
     private bool _grounded;
     private ContactFilter2D _contactFilter;
     private RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
+
+    private bool _isJumped = false;
 
     private const float MinMoveDistance = 0.001f;
     private const float ShellRadius = 0.01f;
@@ -39,6 +42,11 @@ public class Slide : MonoBehaviour
         Vector2 alongSurface = Vector2.Perpendicular(_groundNormal);
 
         _targetVelocity = alongSurface * _speed;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _isJumped = true;
+        }
     }
 
     private void FixedUpdate()
@@ -57,14 +65,28 @@ public class Slide : MonoBehaviour
         move = Vector2.up * deltaPosition.y;
 
         ApplyMovement(move, true);
+
+        Jumping();
+    }
+
+    private void Jumping()
+    {
+        if (!_isJumped) { return; }
+
+        _isJumped = false;
+
+        if (_grounded)
+        {
+            _velocity.y = _jumpForce;
+        }
     }
 
     private void ApplyMovement(Vector2 move, bool yMovement)
     {
+        if (move.magnitude <= MinMoveDistance) { _rigidbody.position += move; return; }
+
+
         float distance = move.magnitude;
-
-        if (distance <= MinMoveDistance) { _rigidbody.position += move; }
-
 
         IEnumerable<RaycastHit2D> newHits = GetHits(move, distance);
 
