@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Slide : MonoBehaviour
 {
-    [SerializeField] private float _minGroundNormalY = .65f;
+    [SerializeField] private float _minGroundNormalY = .1f;
     [SerializeField] private float _gravityModifier = 1f;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private LayerMask _layerMask;
@@ -39,10 +39,11 @@ public class Slide : MonoBehaviour
 
     private void Update()
     {
-        Vector2 alongSurface = Vector2.Perpendicular(_groundNormal);
+        HandleInput();
+    }
 
-        _targetVelocity = alongSurface * _speed;
-
+    private void HandleInput()
+    {
         if (Input.GetKey(KeyCode.Space))
         {
             _isJumped = true;
@@ -51,6 +52,7 @@ public class Slide : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _targetVelocity = _groundNormal * _speed;
         _velocity += _gravityModifier * Physics2D.gravity * Time.deltaTime;
         _velocity.x = _targetVelocity.x;
 
@@ -58,13 +60,13 @@ public class Slide : MonoBehaviour
 
         Vector2 deltaPosition = _velocity * Time.deltaTime;
         Vector2 moveAlongGround = new Vector2(_groundNormal.y, -_groundNormal.x);
-        Vector2 move = _groundNormal.x < 0 ? moveAlongGround * deltaPosition.x : moveAlongGround * -deltaPosition.x;
+        Vector2 move = moveAlongGround * deltaPosition.x;
 
-        ApplyMovement(move, false);
+        Movement(move, false);
 
         move = Vector2.up * deltaPosition.y;
 
-        ApplyMovement(move, true);
+        Movement(move, true);
 
         Jumping();
     }
@@ -81,46 +83,57 @@ public class Slide : MonoBehaviour
         }
     }
 
-    private void ApplyMovement(Vector2 move, bool yMovement)
+    private void Movement(Vector2 move, bool yMovement)
     {
         if (move.magnitude <= MinMoveDistance) { _rigidbody.position += move; return; }
 
-
         float distance = move.magnitude;
 
-        IEnumerable<RaycastHit2D> newHits = GetHits(move, distance);
+        ArraySegment<RaycastHit2D> newHits = GetHits(move, distance);
+        RaycastHit2D nearestHit = new RaycastHit2D();
 
         foreach (RaycastHit2D hit in newHits)
         {
-            Vector2 currentNormal = hit.normal;
-
-            if (currentNormal.y > _minGroundNormalY)
-            {
-                _grounded = true;
-                if (yMovement)
-                {
-                    _groundNormal = currentNormal;
-                    currentNormal.x = 0;
-                }
-            }
-
-            float projection = Vector2.Dot(_velocity, currentNormal);
-            if (projection < 0)
-            {
-                _velocity = _velocity - projection * currentNormal;
-            }
+            if (hit.normal.y <= _minGroundNormalY) { continue; }
 
             float modifiedDistance = hit.distance - ShellRadius;
-            distance = modifiedDistance < distance ? modifiedDistance : distance;
+
+            if (modifiedDistance < distance)
+            {
+                nearestHit = hit;
+                distance = modifiedDistance < distance ? modifiedDistance : distance;
+            }
         }
 
         _rigidbody.position += move.normalized * distance;
+        if (newHits.Count == 0) return;
+
+        Vector2 nearestHitNormal = nearestHit.normal;
+
+        _grounded = true;
+
+        if (yMovement)
+        {
+            _groundNormal = nearestHitNormal;
+            nearestHitNormal.x = 0;
+        }
+
+        AddNormalProjectionToVelocity(nearestHitNormal);
     }
 
-    private IEnumerable<RaycastHit2D> GetHits(Vector2 move, float distance)
+    private void AddNormalProjectionToVelocity(Vector2 normal)
+    {
+        float projection = Vector2.Dot(_velocity, normal);
+        if (projection < 0)
+        {
+            _velocity = _velocity - projection * normal;
+        }
+    }
+
+    private ArraySegment<RaycastHit2D> GetHits(Vector2 move, float distance)
     {
         int count = _rigidbody.Cast(move, _contactFilter, _hitBuffer, distance + ShellRadius);
 
-        return (IEnumerable<RaycastHit2D>)new ArraySegment<RaycastHit2D>(_hitBuffer, 0, count);
+        return new ArraySegment<RaycastHit2D>(_hitBuffer, 0, count);
     }
 }
